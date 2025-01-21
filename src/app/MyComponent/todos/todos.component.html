@@ -1,0 +1,17 @@
+<!-- <h3>Your Todos</h3> -->
+<div class="todos" [ngClass]="{'hide': !showTodos}">
+  <div *ngIf="todos.length == 0; else elseBlock">No Todos To Display</div>
+  
+  <ng-template #elseBlock>
+    <ul>
+      <li *ngFor="let todo of todos;">
+        <app-todo-item [todo]="todo" (todoDelete)="deleteTodo($event)" (markasDone)="toggleactive($event)"></app-todo-item>
+      </li>
+    </ul>
+  </ng-template>
+</div>
+
+<div [ngClass]="{'hide': showTodos}">
+  <app-add-todo (todoAdd)="addTodo($event)"></app-add-todo>
+</div>
+  
