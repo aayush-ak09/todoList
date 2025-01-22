@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Todo } from '../../todo';
 
@@ -23,19 +23,44 @@ export class AddTodoComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.editTodo) {
-      this.title = this.editTodo.title;
-      this.discr = this.editTodo.discr;
-      this.startTime = this.editTodo.startTime;
-      this.endTime = this.editTodo.endTime;
-      this.date = this.editTodo.date;
+    // if (this.editTodo) {
+    //   this.title = this.editTodo.title;
+    //   this.discr = this.editTodo.discr;
+    //   this.startTime = this.editTodo.startTime;
+    //   this.endTime = this.editTodo.endTime;
+    //   this.date = this.editTodo.date;
+    // }
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['editTodo'] && changes['editTodo'].currentValue) {
+      this.populateFields(changes['editTodo'].currentValue);
+    } else {
+      this.clearFields();
     }
   }
+
+  private populateFields(todo: Todo): void {
+    this.title = todo.title;
+    this.discr = todo.discr;
+    this.startTime = todo.startTime;
+    this.endTime = todo.endTime;
+    this.date = todo.date;
+  }
+
+  private clearFields(): void {
+    this.title = '';
+    this.discr = '';
+    this.startTime = '';
+    this.endTime = '';
+    this.date = '';
+  }
+  
 
   onSubmit(): void {
     
     if (this.editTodo) {
-      console.log("here for editinng"+ this.editTodo)
       const updatedTodo = {
         ...this.editTodo,
         title: this.title,
