@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="todoContainer">
+        <h2 [ngClass]="{'strike': !todo.active}">{{todo.title}}</h2>
+        <h5 [ngClass]="{'strike': !todo.active}">{{todo.discr}}</h5>
+
+    </div>
+    <div class="alignRight">
+        <h5>{{todo.startTime}}</h5>
+        <h5>{{todo.endTime}}</h5>
+
+        <input type="checkbox" class="exampleCheck1" id="exampleCheck1" (click)="onCheckBoxClick(todo)"
+            [checked]="!todo.active">
+        <label class="form-check-label" for="exampleCheck1">Done</label>
+        <button class="btn btn-sm btn-primary" (click)="edit(todo)">Edit</button>
+        <button class="btn btn-sm btn-danger" (click)="onClick(todo)">Delete</button>
+    </div>
+</div>
